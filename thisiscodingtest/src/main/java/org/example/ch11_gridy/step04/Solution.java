@@ -3,23 +3,26 @@ package org.example.ch11_gridy.step04;
 import java.util.Arrays;
 
 public class Solution {
-	public static void main(String[] args) {
-		int n = 5;
-		int[] nums = {3, 2, 1, 1, 9};
-		int answer = solution(nums, n);
-		System.out.println(answer);
-	}
+	public int solution(int[] coins, int n){
+		Arrays.sort(coins);
 
-	private static int solution(int[] nums, int n) {
-		Arrays.sort(nums);
 		int target = 1;
-		for (int num : nums) {
-			// 만들수 없는 금액을 찾았을 때 반복 종료
-			if (target < num){
+		for(int coin : coins){
+			if(target >= coin){
+				target += coin;
+			}else{
 				break;
 			}
-			target += num;
 		}
 		return target;
+	}
+
+	public static void main(String[] args) {
+		Solution solution = new Solution();
+		int answer = solution.solution(new int[] {3, 2, 1, 1, 9}, 5);
+		System.out.println(answer);
+
+		int answer2 = solution.solution(new int[] {1, 2, 3, 5, 13}, 5);
+		System.out.println(answer2);
 	}
 }

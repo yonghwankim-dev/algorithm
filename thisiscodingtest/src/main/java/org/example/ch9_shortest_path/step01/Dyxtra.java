@@ -26,7 +26,7 @@ public class Dyxtra {
 			visited[now] = true;
 			// 현재 노드와 연결된 다른 노드를 확인
 			for (int[] adj : graph[now]){
-				//o 현재 노드를 거쳐서 다른 노드로 이동하는 거리가 더 짧은 경우
+				// 현재 노드를 거쳐서 다른 노드로 이동하는 거리가 더 짧은 경우
 				distance[adj[0]] = Math.min(distance[adj[0]], distance[now] + adj[1]);
 			}
 		}
