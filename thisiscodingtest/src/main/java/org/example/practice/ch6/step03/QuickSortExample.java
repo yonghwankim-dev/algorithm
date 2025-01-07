@@ -1,12 +1,11 @@
-package org.example.practice.ch6.step02;
+package org.example.practice.ch6.step03;
 
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.lang.reflect.Array;
 import java.util.Arrays;
 
-public class InsertionSortExample {
+public class QuickSortExample {
 	public static void main(String[] args) {
 		try(BufferedReader br = new BufferedReader(new InputStreamReader(System.in))){
 			int[] arr = Arrays.stream(br.readLine().split(" "))
@@ -25,13 +24,34 @@ public class InsertionSortExample {
 
 	private static int[] solution(int[] arr){
 		int n = arr.length;
-		for (int i = 1; i < n; i++){
-			for (int j = i; j > 0; j--){
-				if (arr[j] < arr[j-1]){
-					swap(j, j-1, arr);
-				}
+		return quickSort(arr, 0, n - 1);
+	}
+
+	private static int[] quickSort(int[] arr, int start, int end){
+		if (start >= end){
+			return arr;
+		}
+		int pivot = start;
+		int left = start + 1;
+		int right = end;
+
+		while (left <= right){
+			while (left <= end && arr[left] <= arr[pivot]){
+				left++;
+			}
+			while (right > start && arr[right] >= arr[pivot]){
+				right--;
+			}
+			if (left > right){
+				swap(pivot, right, arr);
+			}else{
+				swap(left, right, arr);
 			}
 		}
+
+		quickSort(arr, start, right - 1);
+		quickSort(arr, right + 1, end);
+
 		return arr;
 	}
 
@@ -40,6 +60,4 @@ public class InsertionSortExample {
 		arr[from] = arr[to];
 		arr[to] = temp;
 	}
-
-
 }

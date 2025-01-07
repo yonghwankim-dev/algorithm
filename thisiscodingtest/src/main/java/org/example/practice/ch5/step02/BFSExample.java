@@ -18,6 +18,7 @@ public class BFSExample {
 		for (int i = 1; i <= n; i++){
 			graph[i] = new LinkedList<>();
 		}
+
 		for (int i = 1; i <= n; i++){
 			int[] edges = Arrays.stream(br.readLine().split(" "))
 				.mapToInt(Integer::parseInt)
@@ -26,26 +27,29 @@ public class BFSExample {
 			for (int j = 1; j < edges.length; j++){
 				graph[src].add(edges[j]);
 			}
-			graph[src].sort(Integer::compareTo);
+			graph[src].sort(Integer::compare);
 		}
 
-		int[] answer = solution(n, 1, graph);
+		int[] answer = solution(n, graph);
+		int[] expected = {1, 2, 3, 8, 7, 4, 5, 6};
 		System.out.println(Arrays.toString(answer));
-		assert Arrays.equals(answer, new int[]{1, 2, 3, 8, 7, 4, 5, 6});
+		assert Arrays.equals(answer, expected);
 	}
 
-	private static int[] solution(int n, int start, LinkedList<Integer>[] graph){
-		List<Integer> result = new ArrayList<>();
-		Queue<Integer> queue = new LinkedList<>();
+	private static int[] solution(int n, LinkedList<Integer>[] graph){
 		boolean[] visited = new boolean[n + 1];
+		Queue<Integer> queue = new LinkedList<>();
+		int start = 1;
 		queue.offer(start);
 		visited[start] = true;
 
-		while (!queue.isEmpty()){
-			int node = queue.poll();
-			result.add(node);
+		List<Integer> result = new ArrayList<>();
 
-			for (int adj : graph[node]){
+		while (!queue.isEmpty()){
+			Integer cur = queue.poll();
+			result.add(cur);
+
+			for (int adj : graph[cur]){
 				if (!visited[adj]){
 					queue.offer(adj);
 					visited[adj] = true;
