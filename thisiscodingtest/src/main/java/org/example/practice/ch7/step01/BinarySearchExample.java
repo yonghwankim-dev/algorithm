@@ -8,6 +8,7 @@ import java.util.Arrays;
 public class BinarySearchExample {
 	public static void main(String[] args) throws IOException {
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+
 		int[] arr = Arrays.stream(br.readLine().split(" "))
 			.mapToInt(Integer::parseInt)
 			.toArray();
@@ -19,22 +20,19 @@ public class BinarySearchExample {
 	}
 
 	private static int solution(int[] arr, int target){
-		int answer = -1;
-		int n = arr.length;
 		int start = 0;
-		int end = n - 1;
+		int end = arr.length - 1;
 
 		while (start <= end){
 			int mid = (start + end) / 2;
-			if (arr[mid] > target){
+			if (arr[mid] == target){
+				return mid;
+			}else if (arr[mid] > target){
 				end = mid - 1;
-			} else if (arr[mid] < target) {
+			}else if (arr[mid] < target){
 				start = mid + 1;
-			}else{
-				answer = mid;
-				break;
 			}
 		}
-		return answer;
+		return -1;
 	}
 }
