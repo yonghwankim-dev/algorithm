@@ -38,7 +38,7 @@ public class FloydWarshall {
 			"2 3 7",
 			"3 1 5",
 			"3 4 4",
-			"4 3 2"
+			"4 3 4"
 		};
 		for (String input : inputs){
 			int[] arr = Arrays.stream(input.split(" ")).mapToInt(Integer::parseInt).toArray();
